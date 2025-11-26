@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinâmica da Emergência Cósmica - Felipe Romero</title>
+    <title>A Hipótese do Estado Zero Relacional - Felipe Romero</title>
     
     <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -70,7 +70,7 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // --- Componentes de Ícones (SVG Inline para evitar dependências) ---
+        // --- Componentes de Ícones ---
         const IconAtom = () => (
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/></svg>
         );
@@ -90,7 +90,7 @@
                     window.katex.render(tex, containerRef.current, {
                         throwOnError: false,
                         displayMode: block,
-                        output: 'html', // Renderizar como HTML para melhor acessibilidade
+                        output: 'html',
                     });
                 }
             }, [tex, block]);
@@ -99,8 +99,8 @@
         };
 
         const MathBox = ({ tex }) => (
-            <div className="my-8 py-6 px-4 bg-slate-900/50 rounded-lg border border-slate-800 overflow-x-auto flex justify-center shadow-inner">
-                <div className="text-cyan-400 text-lg md:text-xl">
+            <div className="my-8 py-6 px-4 bg-slate-900/50 rounded-lg border border-slate-800 overflow-x-auto flex justify-center shadow-inner group hover:border-cyan-900/50 transition-colors">
+                <div className="text-cyan-400 text-lg md:text-xl font-medium tracking-wide">
                     <MathLatex tex={tex} block={true} />
                 </div>
             </div>
@@ -132,7 +132,7 @@
                     className={`mb-24 scroll-mt-32 transition-all duration-1000 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 >
                     <h2 className="text-2xl md:text-3xl font-bold text-slate-100 mb-6 border-b border-slate-800 pb-2 flex items-center gap-3">
-                        <span className="w-2 h-8 bg-cyan-500 rounded-full inline-block"></span>
+                        <span className="w-2 h-8 bg-cyan-500 rounded-full inline-block shadow-[0_0_10px_rgba(34,211,238,0.5)]"></span>
                         {title}
                     </h2>
                     <div className="text-lg text-slate-300 leading-loose font-serif space-y-6 text-justify">
@@ -148,7 +148,7 @@
 
             useEffect(() => {
                 const handleScroll = () => {
-                    const sections = ['intro', 'ezr', 'emergencia', 'dualidade', 'discussao', 'conclusao'];
+                    const sections = ['intro', 'ezr', 'emergencia', 'dualidade', 'corolarios', 'implicacoes', 'conclusao', 'referencias'];
                     for (const section of sections) {
                         const element = document.getElementById(section);
                         if (element) {
@@ -166,18 +166,20 @@
 
             const navItems = [
                 { id: 'intro', label: '1. Introdução' },
-                { id: 'ezr', label: '2. Estado Zero Relacional' },
-                { id: 'emergencia', label: '3. Emergência' },
+                { id: 'ezr', label: '2. EZR e Gênese' },
+                { id: 'emergencia', label: '3. Espaço-Tempo Emergente' },
                 { id: 'dualidade', label: '4. Dualidade Estrutural' },
-                { id: 'discussao', label: '5. Discussão' },
-                { id: 'conclusao', label: '6. Conclusão' },
+                { id: 'corolarios', label: '5. Previsões' },
+                { id: 'implicacoes', label: '6. Implicações' },
+                { id: 'conclusao', label: '7. Conclusão' },
+                { id: 'referencias', label: 'Referências' },
             ];
 
             return (
-                <div className="min-h-screen relative overflow-hidden">
+                <div className="min-h-screen relative overflow-hidden font-sans">
                     {/* Background Elements */}
                     <div className="fixed inset-0 bg-stars pointer-events-none z-0"></div>
-                    <div className="fixed top-0 left-0 w-full h-96 bg-gradient-to-b from-cyan-900/20 to-transparent pointer-events-none z-0"></div>
+                    <div className="fixed top-0 left-0 w-full h-96 bg-gradient-to-b from-cyan-950/30 to-transparent pointer-events-none z-0"></div>
 
                     <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-16">
                         
@@ -201,7 +203,7 @@
                                 </nav>
                                 
                                 <div className="mt-12 p-5 bg-slate-900/80 rounded-xl border border-slate-800 shadow-lg backdrop-blur-md">
-                                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-3">Autor</p>
+                                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-3">Pesquisador Independente</p>
                                     <div className="flex items-center gap-3">
                                         <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-600 to-blue-800 flex items-center justify-center font-bold text-white shadow-lg shadow-cyan-900/50">FR</div>
                                         <div>
@@ -218,14 +220,14 @@
                             
                             {/* Header */}
                             <header className="mb-16 lg:text-left">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/50 text-cyan-400 text-xs font-semibold border border-cyan-900/50 mb-6 shadow-glow">
-                                    <IconAtom /> Cosmologia Teórica
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/50 text-cyan-400 text-xs font-semibold border border-cyan-900/50 mb-6 shadow-[0_0_15px_rgba(34,211,238,0.2)]">
+                                    <IconAtom /> Nova Cosmologia
                                 </div>
                                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-slate-200 to-slate-400 mb-6 tracking-tight leading-tight">
-                                    Dinâmica da Emergência Cósmica
+                                    A Hipótese do Estado Zero Relacional
                                 </h1>
                                 <p className="text-xl md:text-2xl text-slate-400 font-light mb-10 border-l-4 border-cyan-900 pl-6">
-                                    Uma Estrutura Teórica a partir de um Estado Zero Relacional e Estabilização por Dualidade
+                                    Uma Estrutura para a Emergência do Pré-Espaço-Tempo e a Estruturação Cósmica
                                 </p>
                                 
                                 {/* Resumo */}
@@ -235,121 +237,137 @@
                                         <IconFileText /> Resumo
                                     </h3>
                                     <p className="text-slate-300 font-serif leading-relaxed italic text-lg">
-                                        Este trabalho propõe uma estrutura cosmogônica na qual o espaço-tempo e a matéria emergem como propriedades derivadas de um estado fundamental metaestável, denominado <strong>Estado Zero Relacional (EZR)</strong>. O modelo descreve a gênese do universo físico como um processo de auto-amplificação não-linear de flutuações quânticas neste estado de potencialidade. Introduzimos ainda o <strong>Princípio da Dualidade Estrutural</strong> como o mecanismo dinâmico central para a estabilização e evolução do cosmos.
+                                        Este artigo propõe uma reformulação radical das origens cósmicas por meio do Estado Zero Relacional (EZR), um campo de potencialidade estrutural pura pré-espaciotemporal caracterizado por uma instabilidade taquiônica intrínseca. Postulamos que o espaço-tempo e a matéria não são entidades fundamentais, mas propriedades emergentes que surgem da auto-amplificação de flutuações quânticas dentro deste campo primordial. A estrutura introduz o <strong>Princípio da Dualidade Estrutural</strong> como mecanismo de estabilização dinâmica. Crucialmente, demonstramos que a velocidade da luz (<MathLatex tex="c" />) não é uma constante fundamental, mas a taxa na qual o espaço-tempo emergente se adapta para estabelecer relações causais.
                                     </p>
                                 </div>
                             </header>
 
-                            {/* Section 1 */}
+                            {/* Section 1: Intro */}
                             <Section id="intro" title="1. Introdução">
                                 <p>
-                                    O modelo cosmológico padrão (<MathLatex tex="\Lambda CDM" />) oferece uma descrição robusta da evolução do universo a partir de um estado inicial de densidade e temperatura extremas. No entanto, questões fundamentais sobre a origem e a natureza desse estado inicial permanecem em aberto. Abordagens na gravidade quântica investigam a possível emergência do espaço-tempo, porém uma descrição completa da transição de um estado não-manifesto para um universo físico permanece como um desafio central.
+                                    A cosmologia contemporânea, embora empiricamente robusta, permanece ontologicamente incompleta. A singularidade inicial do modelo <MathLatex tex="\Lambda CDM" /> representa um limite matemático e conceitual onde a física conhecida termina. Paralelamente, abordagens de gravidade quântica sugerem a emergência do espaço-tempo, mas carecem de uma narrativa coerente a partir do verdadeiro nada.
                                 </p>
                                 <p>
-                                    Este artigo apresenta uma estrutura teórica que postula um estado primordial, o <strong>Estado Zero Relacional (EZR)</strong>, caracterizado como um campo de potencialidade pura e relações não manifestas. Propomos que a instabilidade intrínseca deste estado desencadeia um processo de emergência que resulta no cosmos observável. O arcabouço aqui desenvolvido integra conceitos de teoria quântica de campos e relatividade geral sob uma perspectiva relacional.
-                                </p>
-                            </Section>
-
-                            {/* Section 2 */}
-                            <Section id="ezr" title="2. O Estado Zero Relacional (EZR)">
-                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">2.1 Definição do EZR</h3>
-                                <p>
-                                    O EZR é definido como o estado fundamental da realidade, anterior à emergência do espaço-tempo. É caracterizado pela ausência de matéria, radiação e geometria, mas pela presença de um campo de potencialidade relacional. Esta definição o distingue do vácuo quântico convencional, que pressupõe um espaço-tempo preexistente.
-                                </p>
-
-                                <h3 className="text-xl font-bold text-slate-100 mt-12 mb-4">2.2 Instabilidade e Auto-Amplificação</h3>
-                                <p>
-                                    Postulamos que o EZR corresponde a um falso vácuo, descrito por um campo escalar <MathLatex tex="\Phi_{EZR}" />. Seu potencial efetivo inclui um termo que torna o estado <MathLatex tex="\Phi=0" /> metaestável:
-                                </p>
-                                <MathBox tex="V(\Phi) \approx \Lambda_{EZR} - \frac{1}{2}\mu^2\Phi^2 + \frac{\lambda}{4}\Phi^4" />
-                                <p>
-                                    O coeficiente <MathLatex tex="-\mu^2" /> indica uma instabilidade fundamental. Neste regime, flutuações quânticas <MathLatex tex="\delta\Phi" /> sofrem auto-amplificação exponencial para modos de longo comprimento de onda (<MathLatex tex="k \to 0" />), conforme a equação de movimento aproximada:
-                                </p>
-                                <MathBox tex="\frac{\partial^2\delta\Phi}{\partial t^2} - \nabla^2\delta\Phi - \mu^2\delta\Phi \approx 0" />
-                                <p>
-                                    A solução, <MathLatex tex="\delta\Phi(t) \propto e^{\mu t}" />, demonstra o crescimento exponencial que inicia a transição de fase, convertendo potencialidade em campos relacionais macroscopicamente significativos.
+                                    Este trabalho apresenta a <strong>Hipótese do Estado Zero Relacional</strong>, uma estrutura onde a realidade se manifesta a partir de um estado primordial de potencial relacional puro—o EZR—cuja instabilidade inerente catalisa a gênese cósmica por meio de mecanismos matematicamente definíveis.
                                 </p>
                             </Section>
 
-                            {/* Section 3 */}
-                            <Section id="emergencia" title="3. Emergência do Espaço-Tempo">
-                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">3.1 Gênese da Geometria</h3>
+                            {/* Section 2: EZR */}
+                            <Section id="ezr" title="2. O EZR e a Gênese Taquiônica">
+                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">2.1. Definição do EZR</h3>
                                 <p>
-                                    A emergência do espaço-tempo está vinculada à quebra de simetria do EZR. Nesta abordagem relacional, a métrica <MathLatex tex="g_{\mu\nu}" /> surge como uma representação da estrutura relacional entre os componentes energéticos que emergem do decaimento do campo <MathLatex tex="\Phi" />. As equações de campo de Einstein emergem então como uma condição de consistência em larga escala:
+                                    O Estado Zero Relacional é definido como um campo de relações não manifestas pré-espaciotemporal, denotado pelo campo escalar <MathLatex tex="\Phi_{EZR}" />. Ele possui duas propriedades fundamentais: <strong>Fenomenologia Zero</strong> (ausência de matéria ou geometria) e <strong>Pura Potencialidade</strong> (um conjunto completo de leis não realizadas).
+                                </p>
+
+                                <h3 className="text-xl font-bold text-slate-100 mt-12 mb-4">2.2. A Instabilidade Taquiônica</h3>
+                                <p>
+                                    O EZR é modelado como um falso vácuo com um potencial efetivo apresentando um termo de massa taquiônica. O coeficiente quadrático negativo torna o estado metaestável:
+                                </p>
+                                <MathBox tex="V(\Phi) = \Lambda_{EZR} - \frac{1}{2}\mu^2\Phi^2 + \frac{\lambda}{4!}\Phi^4" />
+                                <p>
+                                    Flutuações quânticas <MathLatex tex="\delta\Phi" /> dentro deste estado obedecem à seguinte equação, resultando em crescimento exponencial <MathLatex tex="\delta\Phi(t) \propto e^{\mu t}" />:
+                                </p>
+                                <MathBox tex="\frac{\partial^2\delta\Phi}{\partial t^2} - \nabla^2\delta\Phi - \mu^2\delta\Phi = 0" />
+                                <p>
+                                    Esta auto-amplificação é o "gatilho" fundamental que converte potencialidade em relações manifestas.
+                                </p>
+                            </Section>
+
+                            {/* Section 3: Espaço-Tempo */}
+                            <Section id="emergencia" title="3. Espaço-Tempo Emergente">
+                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">3.1. Estrutura Causal Adaptativa</h3>
+                                <p>
+                                    Nesta estrutura, o espaço-tempo não é um pano de fundo estático, mas uma relação dinâmica e emergente. As Equações de Campo de Einstein emergem como uma condição de consistência para a densidade relacional macroscópica:
                                 </p>
                                 <MathBox tex="R_{\mu\nu} - \frac{1}{2}Rg_{\mu\nu} = \frac{8\pi G}{c^4}\langle T_{\mu\nu}(\Phi)\rangle" />
-                                <p>
-                                    Onde o tensor energia-momento <MathLatex tex="T_{\mu\nu}" /> é uma expectativa sobre os estados do campo <MathLatex tex="\Phi" /> emergente.
-                                </p>
-                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">3.2 A Matéria como Padrão</h3>
-                                <p>
-                                    As partículas materiais são entendidas como padrões estáveis e quantizados do campo relacional em seu novo estado. A dualidade matéria-antimatéria é a manifestação primária do Princípio da Dualidade Estrutural.
-                                </p>
-                            </Section>
-
-                            {/* Section 4 */}
-                            <Section id="dualidade" title="4. O Princípio da Dualidade Estrutural">
-                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">4.1 Definição e Dinâmica</h3>
-                                <p>
-                                    A quebra de simetria do EZR gera pares de opostos (<MathLatex tex="\Psi^+, \Psi^-" />) – como carga/anticarga, ordem/caos. A estabilidade do universo manifesto é mantida por um equilíbrio dinâmico, sustentado pela transformação contínua entre estes polos. Este processo é modelado por um sistema de osciladores acoplados:
-                                </p>
-                                <MathBox tex="\frac{d}{dt}\Psi = M\Psi, \quad \text{onde } \Psi = \begin{pmatrix} \psi_+ \\ \psi_- \end{pmatrix}" />
-                                <p>
-                                    A matriz de acoplamento <MathLatex tex="M" /> garante o fluxo de energia entre <MathLatex tex="\Psi^+" /> e <MathLatex tex="\Psi^-" />, impedindo o colapso estático e impulsionando a complexificação.
-                                </p>
                                 
-                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">4.2 Formulação Unificada</h3>
-                                <p>
-                                    Sintetizamos a dinâmica completa na equação relacional:
+                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">3.2. Velocidade da Luz como Taxa de Processamento</h3>
+                                <p className="bg-slate-900/40 border-l-4 border-cyan-500 pl-4 py-2 my-4 rounded-r-lg">
+                                    Um insight crucial: a velocidade da luz <MathLatex tex="c" /> não é uma barreira fundamental, mas a <strong>taxa máxima na qual o espaço-tempo emergente pode estabelecer conexões causais</strong>.
                                 </p>
-                                <MathBox tex="\frac{\partial R}{\partial \tau} = \nabla\Phi_{EZR} \cdot [\Psi^+ \rightleftharpoons \Psi^-]" />
-                                <ul className="list-disc pl-5 space-y-3 mt-4 text-slate-400 text-base font-sans">
-                                    <li><strong className="text-slate-200">R</strong>: Estrutura relacional da realidade.</li>
-                                    <li><strong className="text-slate-200"><MathLatex tex="\partial/\partial \tau" /></strong>: Derivada em relação a um tempo intrínseco emergente.</li>
-                                    <li><strong className="text-slate-200"><MathLatex tex="\nabla\Phi_{EZR}" /></strong>: Gradiente de potencial do EZR, a instabilidade fundamental.</li>
-                                    <li><strong className="text-slate-200"><MathLatex tex="[\Psi^+ \rightleftharpoons \Psi^-]" /></strong>: Operador de dualidade dinâmica.</li>
+                                <p>
+                                    Ela representa a "velocidade de processamento" das atualizações relacionais. Processos taquiônicos no EZR não são "mais rápidos que a luz"—eles são pré-espaciotemporais e, assim, definem o quadro no qual <MathLatex tex="c" /> se torna significativo.
+                                </p>
+                            </Section>
+
+                            {/* Section 4: Dualidade */}
+                            <Section id="dualidade" title="4. O Princípio da Dualidade Estrutural">
+                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">4.1. Dinâmica Cósmica Bipolar</h3>
+                                <p>
+                                    A quebra de simetria do EZR gera necessariamente pares complementares (<MathLatex tex="\Psi^+, \Psi^-" />). A estabilidade cósmica é mantida pela transformação contínua, governada por uma matriz de acoplamento <MathLatex tex="M" />:
+                                </p>
+                                <MathBox tex="\frac{d}{dt}\Psi = M\Psi, \quad \Psi = \begin{pmatrix} \psi_+ \\ \psi_- \end{pmatrix}" />
+                                
+                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">4.2. Dinâmica Relacional Unificada</h3>
+                                <p>
+                                    Sintetizamos a evolução cósmica completa na seguinte equação, onde <MathLatex tex="\otimes" /> denota a interação entre a pressão ontológica do EZR e o operador de dualidade:
+                                </p>
+                                <MathBox tex="\frac{\partial R}{\partial \tau} = \nabla\Phi_{EZR} \otimes [\Psi^+ \rightleftharpoons \Psi^-]" />
+                            </Section>
+
+                            {/* Section 5: Corolários */}
+                            <Section id="corolarios" title="5. Corolários e Previsões">
+                                <div className="grid gap-6 mt-6">
+                                    <div className="bg-slate-900/40 p-6 rounded-lg border border-slate-800 hover:border-cyan-800 transition-all">
+                                        <h4 className="font-bold text-cyan-400 mb-2 text-lg">5.1. Buracos Negros</h4>
+                                        <p className="text-sm text-slate-400">
+                                            Reinterpretados não como singularidades gravitacionais, mas como <strong>pontos de dissolução relacional</strong>. O horizonte de eventos marca o limite onde o espaço-tempo emergente se torna instável e a estrutura manifesta se reconecta com o EZR.
+                                        </p>
+                                    </div>
+                                    <div className="bg-slate-900/40 p-6 rounded-lg border border-slate-800 hover:border-cyan-800 transition-all">
+                                        <h4 className="font-bold text-cyan-400 mb-2 text-lg">5.2. Ajuste Fino</h4>
+                                        <p className="text-sm text-slate-400">
+                                            Explicado como um <strong>viés de seleção ontológica</strong>. Apenas configurações estáveis por dualidade persistem para formar universos complexos, eliminando a necessidade de coincidências improváveis.
+                                        </p>
+                                    </div>
+                                    <div className="bg-slate-900/40 p-6 rounded-lg border border-slate-800 hover:border-cyan-800 transition-all">
+                                        <h4 className="font-bold text-cyan-400 mb-2 text-lg">5.3. Assinaturas CMB</h4>
+                                        <p className="text-sm text-slate-400">
+                                            O modelo prevê padrões específicos não-Gaussianos nos modos B de polarização da Radiação Cósmica de Fundo, resultantes de transições de fase primordiais.
+                                        </p>
+                                    </div>
+                                </div>
+                            </Section>
+
+                            {/* Section 6: Implicações */}
+                            <Section id="implicacoes" title="6. Implicações Filosóficas e Tecnológicas">
+                                <h3 className="text-xl font-bold text-slate-100 mt-4 mb-4">6.1. Além da Causalidade</h3>
+                                <p>
+                                    A estrutura transcende as relações padrão de causa e efeito. Eventos no EZR são acausais no sentido espaciotemporal clássico, mas logicamente necessários devido à instabilidade intrínseca do sistema.
+                                </p>
+                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">6.2. Potencial para Engenharia Relacional</h3>
+                                <p>
+                                    Uma civilização que dominasse a dinâmica do EZR poderia teoricamente criar domínios de espaço-tempo estabilizados com leis físicas personalizadas ou viajar distâncias cósmicas via reconfiguração do EZR (bypass do espaço-tempo) em vez de locomoção convencional.
+                                </p>
+                            </Section>
+
+                            {/* Section 7: Conclusão */}
+                            <Section id="conclusao" title="7. Conclusão">
+                                <p>
+                                    A Hipótese do Estado Zero Relacional fornece uma estrutura coerente e testável para as origens cósmicas que elimina a singularidade inicial através de uma transição de fase bem definida e explica a emergência das leis físicas a partir de uma dinâmica pré-espaciotemporal.
+                                </p>
+                                <p className="mt-6 text-slate-400 italic">
+                                    Trabalhos futuros se concentrarão na formalização matemática do operador de dualidade e na derivação de previsões quantitativas para observações cosmológicas de próxima geração.
+                                </p>
+                            </Section>
+
+                             {/* Referências */}
+                            <section id="referencias" className="mb-24 pt-8 border-t border-slate-800">
+                                <h2 className="text-xl font-bold text-slate-500 mb-6 uppercase tracking-wider">Referências</h2>
+                                <ul className="space-y-4 text-sm text-slate-500 font-mono">
+                                    <li>[1] Romero, F. "Fundamentos Relacionais do Espaço-Tempo Emergente" (2025)</li>
+                                    <li>[2] Guth, A. H. "O Universo Inflacionário" (1997)</li>
+                                    <li>[3] Rovelli, C. "Mecânica Quântica Relacional" (1996)</li>
+                                    <li>[4] Feinberg, G. "Possibilidade de Partículas Mais Rápidas que a Luz" (1967)</li>
+                                    <li>[5] Coleman, S. "O Destino do Falso Vácuo" (1977)</li>
                                 </ul>
-                            </Section>
-
-                            {/* Section 5 */}
-                            <Section id="discussao" title="5. Discussão e Implicações">
-                                <div className="grid md:grid-cols-2 gap-6 mt-6 font-sans not-serif">
-                                    <div className="bg-slate-900/40 p-6 rounded-lg border border-slate-800 hover:border-cyan-800 transition-all group">
-                                        <h4 className="font-bold text-cyan-400 mb-3 text-lg group-hover:text-cyan-300">5.1 Buracos Negros</h4>
-                                        <p className="text-sm text-slate-400 leading-relaxed">
-                                            Interpretados como regiões de reconexão com o estado fundamental. A singularidade é recontextualizada não como um ponto de densidade infinita, mas como um limite onde as estruturas relacionais manifestas se dissolvem.
-                                        </p>
-                                    </div>
-                                    <div className="bg-slate-900/40 p-6 rounded-lg border border-slate-800 hover:border-cyan-800 transition-all group">
-                                        <h4 className="font-bold text-cyan-400 mb-3 text-lg group-hover:text-cyan-300">5.2 Viés de Seleção</h4>
-                                        <p className="text-sm text-slate-400 leading-relaxed">
-                                            O aparente ajuste fino das constantes universais é reinterpretado como um viés de seleção ontológica. Apenas configurações que alcançam um equilíbrio dinâmico estável permitem a emergência de complexidade.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="mt-8">
-                                    <h4 className="font-bold text-slate-200 mb-2">5.3 Relação com a Física Estabelecida</h4>
-                                    <p>
-                                        Esta estrutura recontextualiza o Big Bang como o ponto de transição de fase observável a partir do qual a história causal do nosso universo manifesto se inicia, sem conflito com as observações que sustentam o modelo padrão.
-                                    </p>
-                                </div>
-                            </Section>
-
-                            {/* Section 6 */}
-                            <Section id="conclusao" title="6. Conclusão">
-                                <p>
-                                    Apresentamos uma estrutura teórica unificada para a origem e sustentação do universo, baseada na emergência a partir de um Estado Zero Relacional e estabilizada por um Princípio de Dualidade dinâmico. O modelo se concentra em descrever os mecanismos imanentes de transição de fase e estabilização.
-                                </p>
-                                <p className="mt-6 border-t border-slate-800 pt-6 text-slate-400 italic">
-                                    Perspectivas futuras incluem o desenvolvimento de um formalismo matemático mais rigoroso e a busca por previsões testáveis, particularmente em relação a assinaturas cosmológicas e à física de buracos negros.
-                                </p>
-                            </Section>
+                            </section>
 
                             <footer className="mt-20 pt-10 border-t border-slate-800 text-center text-slate-600 text-sm pb-10">
-                                <p className="mb-4">&copy; 2025 Felipe Romero. Cosmologia Teórica.</p>
+                                <p className="mb-4">&copy; 2025 Felipe Romero. Cosmologia Teórica Independente.</p>
                                 <div className="flex justify-center gap-6">
                                     <button className="text-slate-500 hover:text-cyan-400 transition-colors flex items-center gap-2">
-                                        <IconShare /> Compartilhar
+                                        <IconShare /> Compartilhar Pré-Print
                                     </button>
                                 </div>
                             </footer>
