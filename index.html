@@ -1,119 +1,367 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azeites Argentinos</title>
+    <title>Dinâmica da Emergência Cósmica - Felipe Romero</title>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel para JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            850: '#151e2e',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        cyan: {
+                            400: '#22d3ee',
+                            900: '#164e63',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Merriweather', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- KaTeX CSS & JS para Fórmulas Matemáticas -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOdBnHPSh/7N9894WGkwCkRclFh527jrF1x9OAdLTjvzRowrG3wSSJ5V4NwF" crossorigin="anonymous"></script>
+
+    <!-- Fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #e5e5d0;
-            color: #333;
+            background-color: #020617;
+            color: #e2e8f0;
         }
-        .text-pine-900 {
-            color: #1a4d33;
+        /* Efeito de fundo estelar sutil */
+        .bg-stars {
+            background-image: radial-gradient(white 1px, transparent 1px), radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            opacity: 0.03;
         }
-        .bg-pine-800 {
-            background-color: #2a6a4d;
-        }
-        .bg-wood-100 {
-            background-color: #f7f3e8;
+        .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 1rem 0;
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
+    <div id="root"></div>
 
-    <!-- Header -->
-    <header class="bg-pine-800 text-white py-8 shadow-lg">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-wide">Azeites Argentinos</h1>
-            <p class="text-lg md:text-xl mt-2 font-light text-gray-200">A Pura Essência da Oliveira, a pronta entrega</p>
-        </div>
-    </header>
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
 
-    <!-- Seção de Apresentação (Sobre Nós) -->
-    <main class="container mx-auto px-6 py-12">
-        <section id="sobre" class="bg-wood-100 rounded-2xl shadow-xl p-8 md:p-16 mb-16">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                <div>
-                    
-                    <img src="https://placehold.co/800x600/5a7f5a/ffffff?text=Olival+na+Argentina" alt="Imagem de um olival na Argentina" class="rounded-xl shadow-md transform transition-transform duration-500 hover:scale-105">
-                </div>
-                <div class="text-center md:text-left">
-                    <h2 class="text-4xl font-extrabold text-pine-900 mb-4">Qualidade e Tradição</h2>
-                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                        Nossos azeites são mais que um produto, são o resultado da paixão pela terra argentina. Cultivados com métodos que respeitam a natureza, cada garrafa carrega um sabor autêntico e inconfundível. Oferecemos azeites que transformam suas refeições em experiências memoráveis. Com um compromisso com a agilidade, garantimos que cada um de nossos produtos esteja disponível para pronta entrega, levando o sabor autêntico diretamente para sua casa.
-                    </p>
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        Conheça o cuidado e a dedicação por trás de cada azeite em nossa coleção.
-                    </p>
+        // --- Componentes de Ícones (SVG Inline para evitar dependências) ---
+        const IconAtom = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/></svg>
+        );
+        const IconFileText = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+        );
+        const IconShare = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        );
+
+        // --- Componente para Renderizar LaTeX ---
+        const MathLatex = ({ tex, block = false }) => {
+            const containerRef = useRef(null);
+
+            useEffect(() => {
+                if (window.katex && containerRef.current) {
+                    window.katex.render(tex, containerRef.current, {
+                        throwOnError: false,
+                        displayMode: block,
+                        output: 'html', // Renderizar como HTML para melhor acessibilidade
+                    });
+                }
+            }, [tex, block]);
+
+            return <span ref={containerRef} className={block ? "block text-center my-4" : "inline-block"} />;
+        };
+
+        const MathBox = ({ tex }) => (
+            <div className="my-8 py-6 px-4 bg-slate-900/50 rounded-lg border border-slate-800 overflow-x-auto flex justify-center shadow-inner">
+                <div className="text-cyan-400 text-lg md:text-xl">
+                    <MathLatex tex={tex} block={true} />
                 </div>
             </div>
-        </section>
+        );
 
-        <!-- Seção de Produtos -->
-        <section id="produtos" class="bg-wood-100 rounded-2xl shadow-xl p-8 md:p-16">
-            <h2 class="text-4xl font-extrabold text-center text-pine-900 mb-12">Nossa Seleção de Azeites</h2>
-            <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-                <!-- Os produtos serão injetados aqui via JavaScript -->
-            </div>
-        </section>
-    </main>
+        // --- Componente de Seção com Animação ---
+        const Section = ({ id, title, children }) => {
+            const [isVisible, setIsVisible] = useState(false);
+            const ref = useRef(null);
 
-    <!-- Footer -->
-    <footer class="bg-pine-800 text-white py-8 mt-16">
-        <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2024 Azeites Argentinos. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+            useEffect(() => {
+                const observer = new IntersectionObserver(
+                    ([entry]) => {
+                        if (entry.isIntersecting) {
+                            setIsVisible(true);
+                            observer.disconnect();
+                        }
+                    },
+                    { threshold: 0.1 }
+                );
+                if (ref.current) observer.observe(ref.current);
+                return () => observer.disconnect();
+            }, []);
 
-    <script>
-        const products = [
-            {
-                name: 'Azeite Extra Virgem Premium',
-                description: 'Azeite de azeitonas Arbequina e Picual. Sabor complexo e equilibrado com notas herbáceas. Disponível para pronta entrega.',
-                price: 'R$ 75,00',
-                image: 'https://placehold.co/400x500/5a7f5a/ffffff?text=Azeite+Premium',
-                whatsappText: 'Olá, gostaria de pedir o Azeite Extra Virgem Premium.'
-            },
-            {
-                name: 'Azeite Orgânico Suave',
-                description: 'Produzido com métodos orgânicos. Possui um sabor suave e frutado, perfeito para pratos delicados. Disponível para pronta entrega.',
-                price: 'R$ 85,00',
-                image: 'https://placehold.co/400x500/5a7f5a/ffffff?text=Azeite+Organico',
-                whatsappText: 'Olá, gostaria de pedir o Azeite Orgânico Suave.'
-            },
-            {
-                name: 'Azeite de Pimenta Malagueta',
-                description: 'Um azeite infusionado com pimenta. Ideal para quem busca um toque picante e marcante. Disponível para pronta entrega.',
-                price: 'R$ 70,00',
-                image: 'https://placehold.co/400x500/5a7f5a/ffffff?text=Azeite+Picante',
-                whatsappText: 'Olá, gostaria de pedir o Azeite de Pimenta Malagueta.'
-            }
-        ];
-
-        const productList = document.getElementById('product-list');
-        const phoneNumber = '5517992173645'; // Seu novo número de telefone
-        
-        products.forEach(product => {
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(product.whatsappText)}`;
-            const productCard = `
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105">
-                    <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover">
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-bold text-pine-900 mb-2">${product.name}</h3>
-                        <p class="text-gray-600 text-sm mb-4">${product.description}</p>
-                        <span class="text-2xl font-bold text-gray-900 mb-4 block">${product.price}</span>
-                        <a href="${whatsappUrl}" target="_blank" class="w-full bg-lime-600 hover:bg-lime-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 inline-block">
-                            Pedir via WhatsApp
-                        </a>
+            return (
+                <section 
+                    id={id} 
+                    ref={ref}
+                    className={`mb-24 scroll-mt-32 transition-all duration-1000 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                >
+                    <h2 className="text-2xl md:text-3xl font-bold text-slate-100 mb-6 border-b border-slate-800 pb-2 flex items-center gap-3">
+                        <span className="w-2 h-8 bg-cyan-500 rounded-full inline-block"></span>
+                        {title}
+                    </h2>
+                    <div className="text-lg text-slate-300 leading-loose font-serif space-y-6 text-justify">
+                        {children}
                     </div>
+                </section>
+            );
+        };
+
+        // --- Aplicação Principal ---
+        const App = () => {
+            const [activeSection, setActiveSection] = useState('intro');
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    const sections = ['intro', 'ezr', 'emergencia', 'dualidade', 'discussao', 'conclusao'];
+                    for (const section of sections) {
+                        const element = document.getElementById(section);
+                        if (element) {
+                            const rect = element.getBoundingClientRect();
+                            if (rect.top >= 0 && rect.top <= 400) {
+                                setActiveSection(section);
+                                break;
+                            }
+                        }
+                    }
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const navItems = [
+                { id: 'intro', label: '1. Introdução' },
+                { id: 'ezr', label: '2. Estado Zero Relacional' },
+                { id: 'emergencia', label: '3. Emergência' },
+                { id: 'dualidade', label: '4. Dualidade Estrutural' },
+                { id: 'discussao', label: '5. Discussão' },
+                { id: 'conclusao', label: '6. Conclusão' },
+            ];
+
+            return (
+                <div className="min-h-screen relative overflow-hidden">
+                    {/* Background Elements */}
+                    <div className="fixed inset-0 bg-stars pointer-events-none z-0"></div>
+                    <div className="fixed top-0 left-0 w-full h-96 bg-gradient-to-b from-cyan-900/20 to-transparent pointer-events-none z-0"></div>
+
+                    <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-16">
+                        
+                        {/* Sidebar Navigation */}
+                        <aside className="hidden lg:block w-64 flex-shrink-0">
+                            <div className="sticky top-24">
+                                <nav className="space-y-1 border-l border-slate-800 ml-2">
+                                    {navItems.map((item) => (
+                                        <a
+                                            key={item.id}
+                                            href={`#${item.id}`}
+                                            className={`group flex items-center pl-4 py-3 text-sm font-medium border-l-2 transition-all duration-300 ${
+                                                activeSection === item.id
+                                                    ? 'border-cyan-500 text-cyan-400 bg-cyan-950/10'
+                                                    : 'border-transparent text-slate-500 hover:text-slate-300 hover:border-slate-600'
+                                            }`}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    ))}
+                                </nav>
+                                
+                                <div className="mt-12 p-5 bg-slate-900/80 rounded-xl border border-slate-800 shadow-lg backdrop-blur-md">
+                                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-3">Autor</p>
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-600 to-blue-800 flex items-center justify-center font-bold text-white shadow-lg shadow-cyan-900/50">FR</div>
+                                        <div>
+                                            <p className="text-sm font-bold text-slate-200">Felipe Romero</p>
+                                            <p className="text-xs text-slate-500">Novembro 2025</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+
+                        {/* Main Content */}
+                        <article className="flex-1 max-w-3xl">
+                            
+                            {/* Header */}
+                            <header className="mb-16 lg:text-left">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/50 text-cyan-400 text-xs font-semibold border border-cyan-900/50 mb-6 shadow-glow">
+                                    <IconAtom /> Cosmologia Teórica
+                                </div>
+                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-slate-200 to-slate-400 mb-6 tracking-tight leading-tight">
+                                    Dinâmica da Emergência Cósmica
+                                </h1>
+                                <p className="text-xl md:text-2xl text-slate-400 font-light mb-10 border-l-4 border-cyan-900 pl-6">
+                                    Uma Estrutura Teórica a partir de um Estado Zero Relacional e Estabilização por Dualidade
+                                </p>
+                                
+                                {/* Resumo */}
+                                <div className="bg-slate-900/60 p-8 rounded-2xl border border-slate-800 shadow-2xl backdrop-blur-md relative overflow-hidden group hover:border-slate-700 transition-colors">
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all duration-700 group-hover:bg-cyan-500/10"></div>
+                                    <h3 className="text-sm font-bold text-cyan-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                        <IconFileText /> Resumo
+                                    </h3>
+                                    <p className="text-slate-300 font-serif leading-relaxed italic text-lg">
+                                        Este trabalho propõe uma estrutura cosmogônica na qual o espaço-tempo e a matéria emergem como propriedades derivadas de um estado fundamental metaestável, denominado <strong>Estado Zero Relacional (EZR)</strong>. O modelo descreve a gênese do universo físico como um processo de auto-amplificação não-linear de flutuações quânticas neste estado de potencialidade. Introduzimos ainda o <strong>Princípio da Dualidade Estrutural</strong> como o mecanismo dinâmico central para a estabilização e evolução do cosmos.
+                                    </p>
+                                </div>
+                            </header>
+
+                            {/* Section 1 */}
+                            <Section id="intro" title="1. Introdução">
+                                <p>
+                                    O modelo cosmológico padrão (<MathLatex tex="\Lambda CDM" />) oferece uma descrição robusta da evolução do universo a partir de um estado inicial de densidade e temperatura extremas. No entanto, questões fundamentais sobre a origem e a natureza desse estado inicial permanecem em aberto. Abordagens na gravidade quântica investigam a possível emergência do espaço-tempo, porém uma descrição completa da transição de um estado não-manifesto para um universo físico permanece como um desafio central.
+                                </p>
+                                <p>
+                                    Este artigo apresenta uma estrutura teórica que postula um estado primordial, o <strong>Estado Zero Relacional (EZR)</strong>, caracterizado como um campo de potencialidade pura e relações não manifestas. Propomos que a instabilidade intrínseca deste estado desencadeia um processo de emergência que resulta no cosmos observável. O arcabouço aqui desenvolvido integra conceitos de teoria quântica de campos e relatividade geral sob uma perspectiva relacional.
+                                </p>
+                            </Section>
+
+                            {/* Section 2 */}
+                            <Section id="ezr" title="2. O Estado Zero Relacional (EZR)">
+                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">2.1 Definição do EZR</h3>
+                                <p>
+                                    O EZR é definido como o estado fundamental da realidade, anterior à emergência do espaço-tempo. É caracterizado pela ausência de matéria, radiação e geometria, mas pela presença de um campo de potencialidade relacional. Esta definição o distingue do vácuo quântico convencional, que pressupõe um espaço-tempo preexistente.
+                                </p>
+
+                                <h3 className="text-xl font-bold text-slate-100 mt-12 mb-4">2.2 Instabilidade e Auto-Amplificação</h3>
+                                <p>
+                                    Postulamos que o EZR corresponde a um falso vácuo, descrito por um campo escalar <MathLatex tex="\Phi_{EZR}" />. Seu potencial efetivo inclui um termo que torna o estado <MathLatex tex="\Phi=0" /> metaestável:
+                                </p>
+                                <MathBox tex="V(\Phi) \approx \Lambda_{EZR} - \frac{1}{2}\mu^2\Phi^2 + \frac{\lambda}{4}\Phi^4" />
+                                <p>
+                                    O coeficiente <MathLatex tex="-\mu^2" /> indica uma instabilidade fundamental. Neste regime, flutuações quânticas <MathLatex tex="\delta\Phi" /> sofrem auto-amplificação exponencial para modos de longo comprimento de onda (<MathLatex tex="k \to 0" />), conforme a equação de movimento aproximada:
+                                </p>
+                                <MathBox tex="\frac{\partial^2\delta\Phi}{\partial t^2} - \nabla^2\delta\Phi - \mu^2\delta\Phi \approx 0" />
+                                <p>
+                                    A solução, <MathLatex tex="\delta\Phi(t) \propto e^{\mu t}" />, demonstra o crescimento exponencial que inicia a transição de fase, convertendo potencialidade em campos relacionais macroscopicamente significativos.
+                                </p>
+                            </Section>
+
+                            {/* Section 3 */}
+                            <Section id="emergencia" title="3. Emergência do Espaço-Tempo">
+                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">3.1 Gênese da Geometria</h3>
+                                <p>
+                                    A emergência do espaço-tempo está vinculada à quebra de simetria do EZR. Nesta abordagem relacional, a métrica <MathLatex tex="g_{\mu\nu}" /> surge como uma representação da estrutura relacional entre os componentes energéticos que emergem do decaimento do campo <MathLatex tex="\Phi" />. As equações de campo de Einstein emergem então como uma condição de consistência em larga escala:
+                                </p>
+                                <MathBox tex="R_{\mu\nu} - \frac{1}{2}Rg_{\mu\nu} = \frac{8\pi G}{c^4}\langle T_{\mu\nu}(\Phi)\rangle" />
+                                <p>
+                                    Onde o tensor energia-momento <MathLatex tex="T_{\mu\nu}" /> é uma expectativa sobre os estados do campo <MathLatex tex="\Phi" /> emergente.
+                                </p>
+                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">3.2 A Matéria como Padrão</h3>
+                                <p>
+                                    As partículas materiais são entendidas como padrões estáveis e quantizados do campo relacional em seu novo estado. A dualidade matéria-antimatéria é a manifestação primária do Princípio da Dualidade Estrutural.
+                                </p>
+                            </Section>
+
+                            {/* Section 4 */}
+                            <Section id="dualidade" title="4. O Princípio da Dualidade Estrutural">
+                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">4.1 Definição e Dinâmica</h3>
+                                <p>
+                                    A quebra de simetria do EZR gera pares de opostos (<MathLatex tex="\Psi^+, \Psi^-" />) – como carga/anticarga, ordem/caos. A estabilidade do universo manifesto é mantida por um equilíbrio dinâmico, sustentado pela transformação contínua entre estes polos. Este processo é modelado por um sistema de osciladores acoplados:
+                                </p>
+                                <MathBox tex="\frac{d}{dt}\Psi = M\Psi, \quad \text{onde } \Psi = \begin{pmatrix} \psi_+ \\ \psi_- \end{pmatrix}" />
+                                <p>
+                                    A matriz de acoplamento <MathLatex tex="M" /> garante o fluxo de energia entre <MathLatex tex="\Psi^+" /> e <MathLatex tex="\Psi^-" />, impedindo o colapso estático e impulsionando a complexificação.
+                                </p>
+                                
+                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">4.2 Formulação Unificada</h3>
+                                <p>
+                                    Sintetizamos a dinâmica completa na equação relacional:
+                                </p>
+                                <MathBox tex="\frac{\partial R}{\partial \tau} = \nabla\Phi_{EZR} \cdot [\Psi^+ \rightleftharpoons \Psi^-]" />
+                                <ul className="list-disc pl-5 space-y-3 mt-4 text-slate-400 text-base font-sans">
+                                    <li><strong className="text-slate-200">R</strong>: Estrutura relacional da realidade.</li>
+                                    <li><strong className="text-slate-200"><MathLatex tex="\partial/\partial \tau" /></strong>: Derivada em relação a um tempo intrínseco emergente.</li>
+                                    <li><strong className="text-slate-200"><MathLatex tex="\nabla\Phi_{EZR}" /></strong>: Gradiente de potencial do EZR, a instabilidade fundamental.</li>
+                                    <li><strong className="text-slate-200"><MathLatex tex="[\Psi^+ \rightleftharpoons \Psi^-]" /></strong>: Operador de dualidade dinâmica.</li>
+                                </ul>
+                            </Section>
+
+                            {/* Section 5 */}
+                            <Section id="discussao" title="5. Discussão e Implicações">
+                                <div className="grid md:grid-cols-2 gap-6 mt-6 font-sans not-serif">
+                                    <div className="bg-slate-900/40 p-6 rounded-lg border border-slate-800 hover:border-cyan-800 transition-all group">
+                                        <h4 className="font-bold text-cyan-400 mb-3 text-lg group-hover:text-cyan-300">5.1 Buracos Negros</h4>
+                                        <p className="text-sm text-slate-400 leading-relaxed">
+                                            Interpretados como regiões de reconexão com o estado fundamental. A singularidade é recontextualizada não como um ponto de densidade infinita, mas como um limite onde as estruturas relacionais manifestas se dissolvem.
+                                        </p>
+                                    </div>
+                                    <div className="bg-slate-900/40 p-6 rounded-lg border border-slate-800 hover:border-cyan-800 transition-all group">
+                                        <h4 className="font-bold text-cyan-400 mb-3 text-lg group-hover:text-cyan-300">5.2 Viés de Seleção</h4>
+                                        <p className="text-sm text-slate-400 leading-relaxed">
+                                            O aparente ajuste fino das constantes universais é reinterpretado como um viés de seleção ontológica. Apenas configurações que alcançam um equilíbrio dinâmico estável permitem a emergência de complexidade.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="mt-8">
+                                    <h4 className="font-bold text-slate-200 mb-2">5.3 Relação com a Física Estabelecida</h4>
+                                    <p>
+                                        Esta estrutura recontextualiza o Big Bang como o ponto de transição de fase observável a partir do qual a história causal do nosso universo manifesto se inicia, sem conflito com as observações que sustentam o modelo padrão.
+                                    </p>
+                                </div>
+                            </Section>
+
+                            {/* Section 6 */}
+                            <Section id="conclusao" title="6. Conclusão">
+                                <p>
+                                    Apresentamos uma estrutura teórica unificada para a origem e sustentação do universo, baseada na emergência a partir de um Estado Zero Relacional e estabilizada por um Princípio de Dualidade dinâmico. O modelo se concentra em descrever os mecanismos imanentes de transição de fase e estabilização.
+                                </p>
+                                <p className="mt-6 border-t border-slate-800 pt-6 text-slate-400 italic">
+                                    Perspectivas futuras incluem o desenvolvimento de um formalismo matemático mais rigoroso e a busca por previsões testáveis, particularmente em relação a assinaturas cosmológicas e à física de buracos negros.
+                                </p>
+                            </Section>
+
+                            <footer className="mt-20 pt-10 border-t border-slate-800 text-center text-slate-600 text-sm pb-10">
+                                <p className="mb-4">&copy; 2025 Felipe Romero. Cosmologia Teórica.</p>
+                                <div className="flex justify-center gap-6">
+                                    <button className="text-slate-500 hover:text-cyan-400 transition-colors flex items-center gap-2">
+                                        <IconShare /> Compartilhar
+                                    </button>
+                                </div>
+                            </footer>
+
+                        </article>
+                    </main>
                 </div>
-            `;
-            productList.innerHTML += productCard;
-        });
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
