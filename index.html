@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azeites Argentinos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e5e5d0;
+            color: #333;
+        }
+        .text-pine-900 {
+            color: #1a4d33;
+        }
+        .bg-pine-800 {
+            background-color: #2a6a4d;
+        }
+        .bg-wood-100 {
+            background-color: #f7f3e8;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-pine-800 text-white py-8 shadow-lg">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-wide">Azeites Argentinos</h1>
+            <p class="text-lg md:text-xl mt-2 font-light text-gray-200">A Pura Essência da Oliveira, a pronta entrega</p>
+        </div>
+    </header>
+
+    <!-- Seção de Apresentação (Sobre Nós) -->
+    <main class="container mx-auto px-6 py-12">
+        <section id="sobre" class="bg-wood-100 rounded-2xl shadow-xl p-8 md:p-16 mb-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div>
+                    
+                    <img src="https://placehold.co/800x600/5a7f5a/ffffff?text=Olival+na+Argentina" alt="Imagem de um olival na Argentina" class="rounded-xl shadow-md transform transition-transform duration-500 hover:scale-105">
+                </div>
+                <div class="text-center md:text-left">
+                    <h2 class="text-4xl font-extrabold text-pine-900 mb-4">Qualidade e Tradição</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Nossos azeites são mais que um produto, são o resultado da paixão pela terra argentina. Cultivados com métodos que respeitam a natureza, cada garrafa carrega um sabor autêntico e inconfundível. Oferecemos azeites que transformam suas refeições em experiências memoráveis. Com um compromisso com a agilidade, garantimos que cada um de nossos produtos esteja disponível para pronta entrega, levando o sabor autêntico diretamente para sua casa.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Conheça o cuidado e a dedicação por trás de cada azeite em nossa coleção.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Produtos -->
+        <section id="produtos" class="bg-wood-100 rounded-2xl shadow-xl p-8 md:p-16">
+            <h2 class="text-4xl font-extrabold text-center text-pine-900 mb-12">Nossa Seleção de Azeites</h2>
+            <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+                <!-- Os produtos serão injetados aqui via JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-pine-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Azeites Argentinos. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            {
+                name: 'Azeite Extra Virgem Premium',
+                description: 'Azeite de azeitonas Arbequina e Picual. Sabor complexo e equilibrado com notas herbáceas. Disponível para pronta entrega.',
+                price: 'R$ 75,00',
+                image: 'https://placehold.co/400x500/5a7f5a/ffffff?text=Azeite+Premium',
+                whatsappText: 'Olá, gostaria de pedir o Azeite Extra Virgem Premium.'
+            },
+            {
+                name: 'Azeite Orgânico Suave',
+                description: 'Produzido com métodos orgânicos. Possui um sabor suave e frutado, perfeito para pratos delicados. Disponível para pronta entrega.',
+                price: 'R$ 85,00',
+                image: 'https://placehold.co/400x500/5a7f5a/ffffff?text=Azeite+Organico',
+                whatsappText: 'Olá, gostaria de pedir o Azeite Orgânico Suave.'
+            },
+            {
+                name: 'Azeite de Pimenta Malagueta',
+                description: 'Um azeite infusionado com pimenta. Ideal para quem busca um toque picante e marcante. Disponível para pronta entrega.',
+                price: 'R$ 70,00',
+                image: 'https://placehold.co/400x500/5a7f5a/ffffff?text=Azeite+Picante',
+                whatsappText: 'Olá, gostaria de pedir o Azeite de Pimenta Malagueta.'
+            }
+        ];
+
+        const productList = document.getElementById('product-list');
+        const phoneNumber = '5517992173645'; // Seu novo número de telefone
+        
+        products.forEach(product => {
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(product.whatsappText)}`;
+            const productCard = `
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover">
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold text-pine-900 mb-2">${product.name}</h3>
+                        <p class="text-gray-600 text-sm mb-4">${product.description}</p>
+                        <span class="text-2xl font-bold text-gray-900 mb-4 block">${product.price}</span>
+                        <a href="${whatsappUrl}" target="_blank" class="w-full bg-lime-600 hover:bg-lime-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 inline-block">
+                            Pedir via WhatsApp
+                        </a>
+                    </div>
+                </div>
+            `;
+            productList.innerHTML += productCard;
+        });
+    </script>
+</body>
+</html>
