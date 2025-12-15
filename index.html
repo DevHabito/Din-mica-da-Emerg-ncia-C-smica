@@ -1,89 +1,52 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Hipótese do Estado Zero Relacional (EZR) - Felipe Romero</title>
+    <title>The Relational Zero State Hypothesis | Felipe Romero</title>
     
     <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     
-    <!-- Babel para JSX -->
+    <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        slate: {
-                            850: '#151e2e',
-                            900: '#0f172a',
-                            950: '#020617',
-                        },
-                        cyan: {
-                            400: '#22d3ee',
-                            900: '#164e63',
-                        },
-                        indigo: {
-                            500: '#6366f1',
-                            900: '#312e81',
-                        }
-                    },
-                    fontFamily: {
-                        serif: ['Merriweather', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- KaTeX CSS & JS para Fórmulas Matemáticas -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOdBnHPSh/7N9894WGkwCkRclFh527jrF1x9OAdLTjvzRowrG3wSSJ5V4NwF" crossorigin="anonymous"></script>
-
-    <!-- Fontes -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    
+    <!-- Google Fonts: Inter (Body) & Noto Serif (Math/Headings) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         body {
-            background-color: #020617;
-            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            background-color: #020617; /* Slate 950 */
+            color: #e2e8f0; /* Slate 200 */
         }
-        /* Efeito de fundo estelar sutil */
-        .bg-stars {
-            background-image: radial-gradient(white 1px, transparent 1px), radial-gradient(white 1px, transparent 1px);
-            background-size: 50px 50px;
-            background-position: 0 0, 25px 25px;
-            opacity: 0.03;
+        .font-serif {
+            font-family: 'Noto Serif', serif;
         }
-        
-        /* Ajuste fino do KaTeX para evitar double scrollbars */
-        .katex-display {
-            overflow: hidden; /* Deixa o container pai lidar com o scroll */
-            margin: 0 !important;
-            padding: 0.5em 0 !important;
+        .math-block {
+            font-family: 'Noto Serif', serif;
+            letter-spacing: 0.05em;
         }
-        
-        /* Estilização da Scrollbar para os cartões matemáticos */
-        .math-scroll::-webkit-scrollbar {
-            height: 6px;
-            background-color: transparent;
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .math-scroll::-webkit-scrollbar-track {
-            background-color: rgba(15, 23, 42, 0.4);
-            border-radius: 3px;
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
         }
-        .math-scroll::-webkit-scrollbar-thumb {
-            background-color: #334155;
-            border-radius: 3px;
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
         }
-        .math-scroll::-webkit-scrollbar-thumb:hover {
-            background-color: #475569;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
         }
     </style>
 </head>
@@ -91,302 +54,238 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
-
-        // --- Componentes de Ícones ---
-        const IconAtom = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/></svg>
+        const { useState, useEffect } = React;
+        
+        // Icon components (Simulating Lucide since pure SVG is safer in single-file React without build step)
+        const IconDownload = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
         );
-        const IconFileText = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+        const IconBook = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
         );
         const IconShare = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
         );
 
-        // --- Componente para Renderizar LaTeX ---
-        const MathLatex = ({ tex, block = false }) => {
-            const containerRef = useRef(null);
-
-            useEffect(() => {
-                if (window.katex && containerRef.current) {
-                    window.katex.render(tex, containerRef.current, {
-                        throwOnError: false,
-                        displayMode: block,
-                        output: 'html',
-                    });
-                }
-            }, [tex, block]);
-
-            return <div ref={containerRef} className={block ? "w-full" : "inline-block"} />;
-        };
-
-        const MathBox = ({ tex }) => (
-            <div className="my-8 bg-slate-900/50 rounded-lg border border-slate-800 shadow-inner group hover:border-cyan-900/50 transition-colors overflow-hidden">
-                <div className="overflow-x-auto py-8 px-6 math-scroll w-full flex justify-center">
-                    <div className="text-cyan-400 text-2xl md:text-3xl font-medium tracking-wide whitespace-nowrap">
-                        <MathLatex tex={tex} block={true} />
+        // Componente para Equações Matemáticas com visual LaTeX
+        const MathDisplay = ({ children, label }) => (
+            <div className="my-10 group">
+                <div className="relative overflow-x-auto bg-slate-900/50 border border-slate-800 rounded-lg p-8 flex justify-center items-center shadow-inner hover:border-indigo-500/30 transition-colors duration-300">
+                    <div className="math-block text-xl md:text-3xl text-indigo-100 font-serif italic text-center whitespace-nowrap">
+                        {children}
                     </div>
+                    {label && (
+                        <span className="absolute right-4 bottom-2 text-xs text-slate-600 font-mono hidden md:block select-none">
+                            ({label})
+                        </span>
+                    )}
                 </div>
             </div>
         );
 
-        // --- Componente de Seção com Animação ---
-        const Section = ({ id, title, children }) => {
-            const [isVisible, setIsVisible] = useState(false);
-            const ref = useRef(null);
+        const Section = ({ number, title, children }) => (
+            <section className="mb-16 scroll-mt-24" id={`section-${number}`}>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-baseline gap-3 border-l-4 border-indigo-500 pl-4">
+                    <span className="text-indigo-400 font-mono text-lg opacity-60">{number}.</span>
+                    {title}
+                </h3>
+                <div className="text-slate-300 leading-relaxed text-lg space-y-6 text-justify">
+                    {children}
+                </div>
+            </section>
+        );
 
-            useEffect(() => {
-                const observer = new IntersectionObserver(
-                    ([entry]) => {
-                        if (entry.isIntersecting) {
-                            setIsVisible(true);
-                            observer.disconnect();
-                        }
-                    },
-                    { threshold: 0.1 }
-                );
-                if (ref.current) observer.observe(ref.current);
-                return () => observer.disconnect();
-            }, []);
-
-            return (
-                <section 
-                    id={id} 
-                    ref={ref}
-                    className={`mb-24 scroll-mt-32 transition-all duration-1000 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                >
-                    <h2 className="text-2xl md:text-3xl font-bold text-slate-100 mb-6 border-b border-slate-800 pb-2 flex items-center gap-3">
-                        <span className="w-2 h-8 bg-cyan-500 rounded-full inline-block shadow-[0_0_10px_rgba(34,211,238,0.5)]"></span>
-                        {title}
-                    </h2>
-                    <div className="text-lg text-slate-300 leading-loose font-serif space-y-6 text-justify">
-                        {children}
-                    </div>
-                </section>
-            );
-        };
-
-        // --- Aplicação Principal ---
         const App = () => {
-            const [activeSection, setActiveSection] = useState('intro');
-
-            useEffect(() => {
-                const handleScroll = () => {
-                    const sections = ['intro', 'campo-ezr', 'emergencia', 'dualidade', 'corolarios', 'conclusao', 'referencias'];
-                    for (const section of sections) {
-                        const element = document.getElementById(section);
-                        if (element) {
-                            const rect = element.getBoundingClientRect();
-                            if (rect.top >= 0 && rect.top <= 400) {
-                                setActiveSection(section);
-                                break;
-                            }
-                        }
-                    }
-                };
-                window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
-
-            const navItems = [
-                { id: 'intro', label: '1. Introdução' },
-                { id: 'campo-ezr', label: '2. Campo EZR e Fluxo' },
-                { id: 'emergencia', label: '3. Espaço-Tempo Emergente' },
-                { id: 'dualidade', label: '4. Mecanismo Dual' },
-                { id: 'corolarios', label: '5. Previsões' },
-                { id: 'conclusao', label: '6. Conclusão' },
-                { id: 'referencias', label: 'Referências' },
-            ];
-
             return (
-                <div className="min-h-screen relative overflow-hidden font-sans">
-                    {/* Background Elements */}
-                    <div className="fixed inset-0 bg-stars pointer-events-none z-0"></div>
-                    <div className="fixed top-0 left-0 w-full h-96 bg-gradient-to-b from-indigo-950/30 to-transparent pointer-events-none z-0"></div>
+                <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200">
+                    
+                    {/* Navigation Bar */}
+                    <nav className="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-white/5">
+                        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+                            <span className="font-bold text-slate-100 tracking-tight">RZS<span className="text-indigo-500">.hypothesis</span></span>
+                            <div className="flex gap-4">
+                                <a href="#abstract" className="text-sm text-slate-400 hover:text-white transition-colors">Abstract</a>
+                                <a href="#theory" className="text-sm text-slate-400 hover:text-white transition-colors">Theory</a>
+                            </div>
+                        </div>
+                    </nav>
 
-                    <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-16">
-                        
-                        {/* Sidebar Navigation */}
-                        <aside className="hidden lg:block w-64 flex-shrink-0">
-                            <div className="sticky top-24">
-                                <nav className="space-y-1 border-l border-slate-800 ml-2">
-                                    {navItems.map((item) => (
-                                        <a
-                                            key={item.id}
-                                            href={`#${item.id}`}
-                                            className={`group flex items-center pl-4 py-3 text-sm font-medium border-l-2 transition-all duration-300 ${
-                                                activeSection === item.id
-                                                    ? 'border-cyan-500 text-cyan-400 bg-cyan-950/10'
-                                                    : 'border-transparent text-slate-500 hover:text-slate-300 hover:border-slate-600'
-                                            }`}
-                                        >
-                                            {item.label}
-                                        </a>
-                                    ))}
-                                </nav>
-                                
-                                <div className="mt-12 p-5 bg-slate-900/80 rounded-xl border border-slate-800 shadow-lg backdrop-blur-md">
-                                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-3">Pesquisador Independente</p>
-                                    <div className="flex items-center gap-3">
-                                        <div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-600 to-cyan-700 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-900/50">FR</div>
-                                        <div>
-                                            <p className="text-sm font-bold text-slate-200">Felipe Romero</p>
-                                            <p className="text-xs text-slate-500">Novembro 2025</p>
-                                        </div>
+                    {/* Hero Section */}
+                    <header className="relative pt-24 pb-20 px-6 overflow-hidden">
+                        {/* Background Gradients */}
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+                        <div className="absolute top-20 right-0 w-[300px] h-[300px] bg-purple-600/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+                        <div className="max-w-4xl mx-auto relative z-10 text-center md:text-left">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/50 border border-indigo-500/30 text-indigo-300 text-xs font-bold tracking-widest uppercase mb-6">
+                                <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                                Preprint v2.0
+                            </div>
+                            
+                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
+                                The Relational <br className="hidden md:block"/>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Zero State</span> Hypothesis
+                            </h1>
+                            
+                            <p className="text-xl md:text-2xl text-slate-400 font-light mb-10 max-w-2xl leading-relaxed">
+                                Gradient Flow Dynamics and the Emergence of <br className="hidden md:block"/> Spacetime Geometry
+                            </p>
+
+                            <div className="flex flex-col md:flex-row items-center gap-6 mb-12 border-t border-white/5 pt-8">
+                                <div className="flex items-center gap-4">
+                                    <div className="h-12 w-12 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 text-lg font-serif italic text-slate-300 shadow-lg">
+                                        FR
                                     </div>
+                                    <div className="text-left">
+                                        <div className="text-white font-semibold">Felipe Romero</div>
+                                        <div className="text-indigo-400 text-sm">Independent Researcher</div>
+                                    </div>
+                                </div>
+                                <div className="hidden md:block h-8 w-px bg-white/10"></div>
+                                <div className="text-slate-500 text-sm">
+                                    Published on <span className="text-slate-300">Zenodo</span> • Indexed in <span className="text-slate-300">PhilPapers</span>
                                 </div>
                             </div>
-                        </aside>
 
-                        {/* Main Content */}
-                        <article className="flex-1 max-w-3xl">
-                            
-                            {/* Header */}
-                            <header className="mb-16 lg:text-left">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/50 text-indigo-400 text-xs font-semibold border border-indigo-900/50 mb-6 shadow-[0_0_15px_rgba(99,102,241,0.2)]">
-                                    <IconAtom /> Física Teórica
-                                </div>
-                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-slate-200 to-indigo-200 mb-6 tracking-tight leading-tight">
-                                    A Hipótese do Estado Zero Relacional (EZR)
-                                </h1>
-                                <p className="text-xl md:text-2xl text-slate-400 font-light mb-10 border-l-4 border-indigo-900 pl-6">
-                                    Dinâmica de Fluxo de Gradiente e a Emergência da Geometria Espaciotemporal "A instabilidade do EZR deixou escapar espaço e tempo; a energia nasceu como reação a isso."
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <a href="https://doi.org/10.5281/zenodo.17756069" target="_blank" className="flex items-center justify-center gap-2 px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-semibold transition-all shadow-lg shadow-indigo-900/20 hover:shadow-indigo-900/40 transform hover:-translate-y-0.5">
+                                    <IconDownload />
+                                    Download PDF
+                                </a>
+                                <a href="https://philpapers.org/rec/ROMTRZ" target="_blank" className="flex items-center justify-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 rounded-lg font-medium transition-all">
+                                    <IconBook />
+                                    PhilPapers Profile
+                                </a>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Main Content */}
+                    <main className="max-w-4xl mx-auto px-6 pb-24">
+                        
+                        {/* Abstract */}
+                        <div id="abstract" className="bg-slate-900/50 backdrop-blur border border-slate-800/60 p-8 md:p-10 rounded-2xl mb-20 shadow-2xl relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-10">
+                                <svg width="100" height="100" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/></svg>
+                            </div>
+                            <h3 className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-4">Abstract</h3>
+                            <p className="text-lg md:text-xl leading-relaxed text-slate-300 font-serif italic">
+                                "This paper proposes an ontological extension to the ΛCDM model, addressing the initial singularity through the Relational Zero State (RZS). Postulated as a pre-geometric scalar field of pure potentiality, we demonstrate that spacetime is an emergent property of a vacuum relaxation process. We substitute classical temporal evolution with Gradient Flow dynamics parameterized by relational complexity (σ). The model recovers General Relativity in the macroscopic limit and reinterprets the speed of light as the system's causal update rate."
+                            </p>
+                        </div>
+
+                        <div id="theory">
+                            <Section number="1" title="Introduction">
+                                <p>
+                                    Modern cosmology faces an epistemological impasse at the Big Bang singularity (t=0), where the spacetime metric diverges and physical causality collapses. Current approaches to quantum gravity, such as Loop Quantum Gravity (LQG) and String Theory, often assume some degree of pre-existing temporal or geometric structure.
+                                </p>
+                                <p>
+                                    The Relational Zero State Hypothesis reverses this logic. We propose that physical reality emerges from a state of <strong className="text-white">"Unstable Nothingness"</strong> (the RZS), governed not by time, but by a thermodynamic necessity to maximize relations. The universe, therefore, did not "begin" in time; time began with the universe.
+                                </p>
+                            </Section>
+
+                            <Section number="2" title="The RZS Field and Acausal Dynamics">
+                                <p>
+                                    We define the RZS through a scalar field <span className="font-serif italic">Φ<sub>RZS</sub></span> that permeates a non-metric manifold. This field possesses Null Entropy and Maximal Potentiality. The effective potential of the system is modeled as an unstable false vacuum:
                                 </p>
                                 
-                                {/* Resumo */}
-                                <div className="bg-slate-900/60 p-8 rounded-2xl border border-slate-800 shadow-2xl backdrop-blur-md relative overflow-hidden group hover:border-slate-700 transition-colors">
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all duration-700 group-hover:bg-indigo-500/10"></div>
-                                    <h3 className="text-sm font-bold text-cyan-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-                                        <IconFileText /> Resumo
-                                    </h3>
-                                    <p className="text-slate-300 font-serif leading-relaxed italic text-lg">
-                                        Este trabalho propõe uma extensão ontológica ao modelo <MathLatex tex="\Lambda CDM" />, abordando a singularidade inicial através do <strong>Estado Zero Relacional (EZR)</strong>. Postulado como um campo escalar pré-geométrico de potencialidade pura, demonstramos que o espaço-tempo é uma propriedade emergente de um processo de relaxamento de vácuo. Substituímos a evolução temporal clássica por uma dinâmica de <strong>Fluxo de Gradiente</strong> parametrizada pela complexidade relacional (<MathLatex tex="\sigma" />). O modelo recupera a Relatividade Geral no limite macroscópico e reinterpreta a velocidade da luz como a taxa de atualização causal do sistema.
-                                    </p>
-                                </div>
-                            </header>
-
-                            {/* Section 1: Intro */}
-                            <Section id="intro" title="1. Introdução">
-                                <p>
-                                    A cosmologia moderna enfrenta um impasse epistemológico na singularidade do Big Bang (<MathLatex tex="t=0" />), onde a métrica do espaço-tempo diverge e a causalidade física colapsa. As tentativas atuais de gravidade quântica (LQG, Teoria das Cordas) frequentemente assumem algum grau de estrutura temporal ou geométrica pré-existente.
-                                </p>
-                                <p>
-                                    A Hipótese do Estado Zero Relacional inverte essa lógica. Propomos que a realidade física emerge de um estado de "Nada Instável" (o EZR), governado não pelo tempo, mas por uma necessidade termodinâmica de maximizar relações. O universo, portanto, não "começou" no tempo; o tempo começou com o universo.
-                                </p>
-                            </Section>
-
-                            {/* Section 2: EZR */}
-                            <Section id="campo-ezr" title="2. O Campo EZR e a Dinâmica Acausal">
-                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">2.1. O Escalar Fundamental</h3>
-                                <p>
-                                    Definimos o EZR através de um campo escalar <MathLatex tex="\Phi_{EZR}" /> que permeia um manifold não-métrico. Este campo possui Entropia Nula e Potencialidade Máxima. O potencial efetivo do sistema é modelado como um falso vácuo instável:
-                                </p>
-                                <MathBox tex="V(\Phi) = \Lambda_{EZR} - \frac{1}{2}\mu^2\Phi^2 + \frac{\lambda}{4!}\Phi^4" />
-                                <p>
-                                    Onde <MathLatex tex="\mu^2" /> representa o termo de massa taquiônica que garante a instabilidade do estado zero.
-                                </p>
-
-                                <h3 className="text-xl font-bold text-slate-100 mt-12 mb-4">2.2. A Equação de Fluxo de Gradiente (A Correção do Tempo)</h3>
-                                <p>
-                                    Ao contrário da mecânica padrão, a dinâmica no regime pré-espaciotemporal não ocorre no tempo <MathLatex tex="t" />, mas ao longo de um parâmetro de complexidade cumulativa, denotado por <MathLatex tex="\sigma" /> (sigma). A evolução do campo segue um Fluxo de Gradiente (Gradient Flow), buscando o mínimo de energia:
-                                </p>
-                                <MathBox tex="\frac{\partial\Phi}{\partial\sigma} = -\frac{\delta V}{\delta\Phi} = \mu^2\Phi - \frac{\lambda}{6}\Phi^3" />
-                                <p>
-                                    Esta equação descreve um sistema que "rola" inevitavelmente para a existência. O tempo físico (<MathLatex tex="t" />), percebido por observadores, emerge como uma grandeza derivada, inversamente proporcional à "violência" dessa transição:
-                                </p>
-                                <div className="flex justify-center my-6">
-                                    <div className="bg-slate-900 px-6 py-3 rounded-lg border border-slate-700 text-cyan-400 font-mono text-lg overflow-x-auto math-scroll">
-                                        <MathLatex tex="dt \equiv \frac{d\sigma}{\left| \frac{\partial\Phi}{\partial\sigma} \right|}" />
-                                    </div>
-                                </div>
-                                <p>
-                                    Isso implica que, nas fases iniciais de alta instabilidade (Big Bang), o "tempo" fluía a taxas incomensuráveis comparadas ao presente, resolvendo problemas de horizonte sem inflação ad-hoc.
-                                </p>
-                            </Section>
-
-                            {/* Section 3: Espaço-Tempo */}
-                            <Section id="emergencia" title="3. Espaço-Tempo Emergente e Causalidade">
-                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">3.1. A Gênese da Métrica</h3>
-                                <p>
-                                    A métrica do espaço-tempo <MathLatex tex="g_{\mu\nu}" /> surge como a "matriz de correlação" das flutuações do campo <MathLatex tex="\Phi" /> estabilizado. As Equações de Einstein são recuperadas como uma condição de equilíbrio hidrodinâmico do campo:
-                                </p>
-                                <MathBox tex="R_{\mu\nu} - \frac{1}{2}Rg_{\mu\nu} = \frac{1}{M_{Pl}^2}\langle T_{\mu\nu}(\Phi)\rangle_\sigma" />
+                                <MathDisplay label="Eq. 1 - Effective Potential">
+                                    V(Φ) = Λ<sub className="text-sm">RZS</sub> - <span className="mx-2">½</span>μ²Φ² + <span className="mx-2">λ⁄24</span>Φ⁴
+                                </MathDisplay>
                                 
-                                <h3 className="text-xl font-bold text-slate-100 mt-8 mb-4">3.2. c como Limite de Processamento</h3>
-                                <p className="bg-slate-900/40 border-l-4 border-indigo-500 pl-4 py-3 my-6 rounded-r-lg">
-                                    Neste quadro, a velocidade da luz <MathLatex tex="c" /> perde seu status de constante arbitrária e ganha um significado computacional.
+                                <p>
+                                    Contrary to standard mechanics, dynamics in the pre-spacetime regime do not occur in time <span className="font-serif italic">t</span>, but along a cumulative complexity parameter, denoted by <span className="font-serif italic">σ</span> (sigma). The evolution of the field follows a Gradient Flow.
                                 </p>
                                 <p>
-                                    <MathLatex tex="c" /> representa a <strong>Taxa Máxima de Propagação de Atualização de Relações</strong> (<MathLatex tex="\Delta\sigma_{max}" />) através da rede emergente. O universo não pode transmitir causalidade mais rápido do que é capaz de computar a próxima interação entre partículas.
+                                    Physical time (<span className="font-serif italic">t</span>), as perceived by observers, emerges as a derived quantity, inversely proportional to the "violence" of this transition:
+                                </p>
+
+                                <MathDisplay label="Eq. 2 - Time Emergence">
+                                    <span className="inline-flex flex-col items-center align-middle mr-3">
+                                        <span className="border-b border-indigo-400/50 pb-1 mb-1">dt</span>
+                                        <span>dσ</span>
+                                    </span>
+                                    ∝ 
+                                    <span className="ml-3">
+                                        | <span className="inline-flex flex-col items-center align-middle mx-1">
+                                            <span className="border-b border-indigo-400/50 pb-1 mb-1">∂Φ</span>
+                                            <span>∂σ</span>
+                                        </span> |⁻²
+                                    </span>
+                                </MathDisplay>
+
+                                <p className="bg-indigo-900/20 p-4 border-l-2 border-indigo-500 text-indigo-200 text-sm">
+                                    <strong>Implication:</strong> In the highly unstable regime (σ → 0), this implies extreme temporal compression, resolving standard horizon and causality problems without invoking ad-hoc inflationary dynamics.
                                 </p>
                             </Section>
 
-                            {/* Section 4: Estabilização Dual */}
-                            <Section id="dualidade" title="4. O Mecanismo de Estabilização Dual">
+                            <Section number="3" title="Metric Genesis & The Pareto Law">
                                 <p>
-                                    Para evitar que a nucleação do universo colapse de volta ao zero, o modelo introduz a quebra de simetria por paridade (P), gerando um estado dual governado por uma matriz de mistura unitária <MathLatex tex="U" />:
+                                    Once relational correlations stabilize, the spacetime metric <span className="font-serif italic">g<sub>μν</sub></span> emerges as an effective correlation matrix of field fluctuations. In the hydrodynamic limit, Einstein’s field equations arise as equilibrium conditions.
                                 </p>
-                                <MathBox tex="\frac{d}{d\sigma}\Psi = U(\theta)\Psi, \quad \text{onde } \Psi = \begin{pmatrix} \psi_{matéria} \\ \psi_{estrutura} \end{pmatrix}" />
+
+                                <MathDisplay label="Eq. 3 - Metric Emergence">
+                                    g<sub className="mr-2">μν</sub> ∼ ⟨ ∂<sub className="mr-1">μ</sub>Φ  ∂<sub className="mr-1">ν</sub>Φ ⟩
+                                </MathDisplay>
+
+                                <h4 className="text-xl font-bold text-white mt-10 mb-4">The Pareto Law of Potentiality</h4>
                                 <p>
-                                    Este acoplamento garante que a "pressão ontológica" do EZR seja convertida em pares estáveis de geometria e matéria, impedindo a aniquilação imediata.
+                                    Relational relaxation is inherently non-uniform. We propose that the conversion of relational potential density <span className="font-serif italic">Ψ</span> into manifest structure follows a generalized Pareto (power-law) distribution. This explains the hierarchical nature of cosmic structures (voids, filaments) without fine-tuning.
                                 </p>
+
+                                <MathDisplay label="Eq. 4 - Structure Formation">
+                                    P(Ψ) = α · Ψ<sub className="mr-1">min</sub><sup className="mr-2">α</sup> · Ψ<sup className="ml-1">-(α+1)</sup>
+                                </MathDisplay>
                             </Section>
 
-                            {/* Section 5: Previsões */}
-                            <Section id="corolarios" title="5. Previsões Observacionais e Corolários">
-                                <div className="grid gap-6 mt-6">
-                                    <div className="bg-slate-900/40 p-6 rounded-lg border border-slate-800 hover:border-indigo-800 transition-all">
-                                        <h4 className="font-bold text-cyan-400 mb-2 text-lg">5.1. Saturação Relacional (Buracos Negros)</h4>
-                                        <p className="text-sm text-slate-400 leading-relaxed mb-3">
-                                            A hipótese prevê que, em regiões de densidade infinita, o parâmetro <MathLatex tex="\sigma" /> satura. Um Buraco Negro é uma região de <strong>Reversão de Fase</strong>. No horizonte de eventos, a densidade de relações excede a capacidade de processamento <MathLatex tex="c" />, fazendo com que a matéria local perca a coerência temporal e retorne ao estado potencial <MathLatex tex="\Phi_{EZR}" />.
-                                        </p>
-                                        <p className="text-xs font-mono text-indigo-400 bg-indigo-900/20 p-2 rounded">
-                                            Previsão: Correções logarítmicas na entropia de Bekenstein-Hawking observáveis em ondas gravitacionais (ringdown).
-                                        </p>
-                                    </div>
-                                    <div className="bg-slate-900/40 p-6 rounded-lg border border-slate-800 hover:border-indigo-800 transition-all">
-                                        <h4 className="font-bold text-cyan-400 mb-2 text-lg">5.2. Assinatura no CMB</h4>
-                                        <p className="text-sm text-slate-400 leading-relaxed">
-                                            A transição de fase via Fluxo de Gradiente (não-térmico) deixa uma marca estatística distinta. Prevemos um espectro de potência com <strong>Não-Gaussianidade primordial</strong> específica nos modos de polarização, distinguível dos modelos de inflação de campo lento (slow-roll).
-                                        </p>
-                                    </div>
-                                </div>
+                            <Section number="4" title="Dual Stabilization Mechanism">
+                                <p>
+                                    To prevent the nucleation of the universe from collapsing back to zero, the model introduces parity symmetry breaking (P), generating a dual state governed by a unitary mixing matrix U. This couples geometry and matter fields.
+                                </p>
+                                <MathDisplay label="Eq. 5 - Stabilization">
+                                    <span className="inline-flex flex-col items-center align-middle mr-3">
+                                        <span className="border-b border-indigo-400/50 pb-1 mb-1">dΨ</span>
+                                        <span>dσ</span>
+                                    </span>
+                                    = U(θ)Ψ
+                                </MathDisplay>
                             </Section>
 
-                            {/* Section 6: Conclusão */}
-                            <Section id="conclusao" title="6. Conclusão">
+                            <Section number="5" title="Conclusion">
                                 <p>
-                                    A Hipótese do Estado Zero Relacional oferece uma estrutura matemática robusta que elimina a necessidade de um "tempo antes do tempo". Ao tratar a realidade como a evolução de um fluxo de complexidade <MathLatex tex="\Phi(\sigma)" />, unificamos a gênese cósmica com a termodinâmica quântica. O universo existe porque o "Nada" é fundamentalmente instável.
+                                    The Relational Zero State hypothesis reframes cosmogenesis as a process of relational relaxation driven by intrinsic instability rather than temporal evolution. 
+                                </p>
+                                <p>
+                                    By treating reality as the evolution of a complexity flow <span className="font-serif italic">Φ(σ)</span>, we unify cosmic genesis with quantum thermodynamics. The universe exists because "Nothingness" is fundamentally unstable.
                                 </p>
                             </Section>
+                        </div>
 
-                             {/* Referências */}
-                            <section id="referencias" className="mb-24 pt-8 border-t border-slate-800">
-                                <h2 className="text-xl font-bold text-slate-500 mb-6 uppercase tracking-wider">Referências</h2>
-                                <ul className="space-y-4 text-sm text-slate-500 font-mono">
-                                    <li>[1] Romero, F. "Fundamentos Relacionais do Espaço-Tempo Emergente: A Hipótese do Estado Zero". Journal of High Energy Physics (Hypothetical), 2025.</li>
-                                    <li>[2] Guth, A. H. "The Inflationary Universe". Phys. Rev. D, 23(2), 1981.</li>
-                                    <li>[3] Coleman, S. "The Fate of the False Vacuum". Phys. Rev. D, 15(10), 1977.</li>
-                                    <li>[4] Rovelli, C. "Relational Quantum Mechanics". Int. Jour. of Theo. Phys., 35, 1996.</li>
-                                    <li>[5] Verlinde, E. "On the Origin of Gravity and the Laws of Newton". JHEP, 2011.</li>
-                                    <li>[6] Lüscher, M. "Properties and uses of the Wilson flow in lattice QCD". JHEP, 2010.</li>
-                                    <li>[7] Feinberg, G. "Possibility of Faster-Than-Light Particles". Phys. Rev., 159(5), 1967.</li>
-                                    <li>[8] Hawking, S. W. "Particle Creation by Black Holes". Comm. Math. Phys., 43(3), 1975.</li>
-                                </ul>
-                            </section>
-
-                            <footer className="mt-20 pt-10 border-t border-slate-800 text-center text-slate-600 text-sm pb-10">
-                                <p className="mb-4">&copy; 2025 Felipe Romero. Cosmologia Teórica Avançada.</p>
-                                <div className="flex justify-center gap-6">
-                                    <button className="text-slate-500 hover:text-cyan-400 transition-colors flex items-center gap-2">
-                                        <IconShare /> Compartilhar Preprint
-                                    </button>
-                                </div>
-                            </footer>
-
-                        </article>
+                        {/* References */}
+                        <div className="mt-24 pt-10 border-t border-slate-800/60">
+                            <h4 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-6">Key References</h4>
+                            <ul className="space-y-4 text-sm text-slate-400 font-mono">
+                                <li className="pl-4 border-l border-slate-700 hover:border-indigo-500 transition-colors">
+                                    [1] Romero, F. (2025). The Relational Zero State Hypothesis. Zenodo.
+                                </li>
+                                <li className="pl-4 border-l border-slate-700 hover:border-indigo-500 transition-colors">
+                                    [2] Guth, A. H. (1981). The Inflationary Universe. Phys. Rev. D, 23.
+                                </li>
+                                <li className="pl-4 border-l border-slate-700 hover:border-indigo-500 transition-colors">
+                                    [3] Rovelli, C. (1996). Relational Quantum Mechanics. Int. Jour. Theo. Phys.
+                                </li>
+                                <li className="pl-4 border-l border-slate-700 hover:border-indigo-500 transition-colors">
+                                    [4] Newman, M. E. J. (2005). Power laws and Pareto distributions.
+                                </li>
+                            </ul>
+                        </div>
                     </main>
+
+                    {/* Footer */}
+                    <footer className="border-t border-slate-900 bg-slate-950 py-12 text-center">
+                        <p className="text-slate-500 text-sm mb-2">© 2025 Felipe Romero. All rights reserved.</p>
+                        <p className="text-slate-600 text-xs uppercase tracking-widest">Philosophy of Physics • Cosmology • Ontology</p>
+                    </footer>
                 </div>
             );
         };
@@ -396,4 +295,3 @@
     </script>
 </body>
 </html>
-
