@@ -170,34 +170,45 @@
                             </div>
                             <h3 className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-4">Abstract</h3>
                             <p className="text-lg md:text-xl leading-relaxed text-slate-300 font-serif italic">
-                                "This paper proposes an ontological extension to the ΛCDM model, addressing the initial singularity through the Relational Zero State (RZS). Postulated as a pre-geometric scalar field of pure potentiality, we demonstrate that spacetime is an emergent property of a vacuum relaxation process. We substitute classical temporal evolution with Gradient Flow dynamics parameterized by relational complexity (σ). The model recovers General Relativity in the macroscopic limit and reinterprets the speed of light as the system's causal update rate."
+                                "We propose the Relational Zero State (RZS) hypothesis as an ontological extension to the ΛCDM cosmological model, addressing the problem of the initial singularity through a pre-geometric relational framework. The RZS is postulated as a scalar, non-metric field of pure relational potentiality, from which spacetime, matter, and causal structure emerge as effective properties. Temporal evolution is replaced, at the fundamental level, by a gradient-flow dynamics parametrized by relational complexity (σ). A central result is the introduction of a Pareto Law of Potentiality, whereby power-law distributions arise naturally from non-linear relaxation of the relational field, explaining hierarchical cosmic structure without fine-tuned initial conditions. In the macroscopic limit, the framework recovers General Relativity and reinterprets the speed of light (c) as a causal update rate of the emergent relational network. The RZS is presented as a conceptual and mathematically open research program, complementary to existing approaches to emergent spacetime."
                             </p>
                         </div>
 
                         <div id="theory">
-                            <Section number="1" title="Introduction">
+                            <Section number="1" title="Introduction: The Ontological Impasse">
                                 <p>
-                                    Modern cosmology faces an epistemological impasse at the Big Bang singularity (t=0), where the spacetime metric diverges and physical causality collapses. Current approaches to quantum gravity, such as Loop Quantum Gravity (LQG) and String Theory, often assume some degree of pre-existing temporal or geometric structure.
+                                    Modern cosmology encounters a fundamental epistemic breakdown at the Big Bang singularity (t = 0), where spacetime curvature diverges and causal description loses meaning. While quantum gravity programs attempt to address this regime, many approaches implicitly retain background notions of time, geometry, or causality.
                                 </p>
                                 <p>
-                                    The Relational Zero State Hypothesis reverses this logic. We propose that physical reality emerges from a state of <strong className="text-white">"Unstable Nothingness"</strong> (the RZS), governed not by time, but by a thermodynamic necessity to maximize relations. The universe, therefore, did not "begin" in time; time began with the universe.
+                                    The Relational Zero State (RZS) hypothesis inverts this logic. We propose that physical reality emerges from an unstable, pre-geometric state of pure relational potentiality, governed not by time but by an intrinsic drive toward relational realization. In this view, the universe did not begin in time; rather, time emerged with the universe.
+                                </p>
+                                <div className="bg-indigo-900/20 p-6 border-l-4 border-indigo-500 my-6">
+                                    <h4 className="text-indigo-300 font-bold mb-2 uppercase text-xs tracking-wider">Axiom of Ontological Reactivity</h4>
+                                    <p className="text-white italic">"The instability of the Relational Zero State necessitates the emergence of structure; spacetime and matter arise as a response to this instability."</p>
+                                </div>
+                                <h4 className="text-lg font-semibold text-white mt-8 mb-2">1.1 Position within Emergent Spacetime Paradigms</h4>
+                                <p>
+                                    The RZS framework belongs to the broader class of emergent spacetime approaches. Unlike entropic or thermodynamic models, RZS formulates emergence through the gradient-flow dynamics of a scalar relational field. The intent is not to replace existing frameworks, but to offer an ontological substrate from which multiple emergent regimes may arise.
                                 </p>
                             </Section>
 
                             <Section number="2" title="The RZS Field and Acausal Dynamics">
+                                <h4 className="text-xl font-bold text-white mb-4">2.1 The Fundamental Scalar Field</h4>
                                 <p>
-                                    We define the RZS through a scalar field <span className="font-serif italic">Φ<sub>RZS</sub></span> that permeates a non-metric manifold. This field possesses Null Entropy and Maximal Potentiality. The effective potential of the system is modeled as an unstable false vacuum:
+                                    The RZS is represented by a scalar field <span className="font-serif italic">Φ<sub>RZS</sub></span> defined on a non-metric relational manifold. This field is characterized by Zero Entropy and Maximal Potentiality. The effective potential takes the form of an unstable (false) vacuum:
                                 </p>
                                 
                                 <MathDisplay label="Eq. 1 - Effective Potential">
-                                    V(Φ) = Λ<sub className="text-sm">RZS</sub> - <span className="mx-2">½</span>μ²Φ² + <span className="mx-2">λ⁄24</span>Φ⁴
+                                    V(Φ) = - <span className="mx-2">½</span>μ²Φ² + <span className="mx-2">λ⁄4</span>Φ⁴ + V<sub className="text-xs">0</sub>
                                 </MathDisplay>
                                 
+                                <h4 className="text-xl font-bold text-white mt-10 mb-4">2.2 Gradient-Flow Dynamics</h4>
                                 <p>
-                                    Contrary to standard mechanics, dynamics in the pre-spacetime regime do not occur in time <span className="font-serif italic">t</span>, but along a cumulative complexity parameter, denoted by <span className="font-serif italic">σ</span> (sigma). The evolution of the field follows a Gradient Flow.
+                                    In the pre-geometric regime, evolution does not occur with respect to physical time (t). Instead, the system evolves along a parameter of cumulative relational complexity (<span className="font-serif italic">σ</span>). The dynamics follow a Gradient Flow: 
+                                    <span className="font-serif italic mx-2 text-indigo-300">∂Φ/∂σ = -δV/δΦ</span>.
                                 </p>
                                 <p>
-                                    Physical time (<span className="font-serif italic">t</span>), as perceived by observers, emerges as a derived quantity, inversely proportional to the "violence" of this transition:
+                                    Physical time emerges only after sufficient stabilization of relations and is defined operationally as a derived quantity:
                                 </p>
 
                                 <MathDisplay label="Eq. 2 - Time Emergence">
@@ -214,50 +225,95 @@
                                     </span>
                                 </MathDisplay>
 
-                                <p className="bg-indigo-900/20 p-4 border-l-2 border-indigo-500 text-indigo-200 text-sm">
-                                    <strong>Implication:</strong> In the highly unstable regime (σ → 0), this implies extreme temporal compression, resolving standard horizon and causality problems without invoking ad-hoc inflationary dynamics.
+                                <p className="text-slate-400 text-sm">
+                                    In the highly unstable regime (σ → 0), this implies extreme temporal compression, resolving standard horizon and causality problems without invoking inflationary dynamics.
                                 </p>
                             </Section>
 
-                            <Section number="3" title="Metric Genesis & The Pareto Law">
+                            <Section number="3" title="Emergent Spacetime, Causality, and Structure">
+                                <h4 className="text-xl font-bold text-white mb-4">3.1 Metric Genesis</h4>
                                 <p>
-                                    Once relational correlations stabilize, the spacetime metric <span className="font-serif italic">g<sub>μν</sub></span> emerges as an effective correlation matrix of field fluctuations. In the hydrodynamic limit, Einstein’s field equations arise as equilibrium conditions.
+                                    Once relational correlations stabilize, the spacetime metric <span className="font-serif italic">g<sub>μν</sub></span> emerges as an effective correlation matrix of field fluctuations:
                                 </p>
 
                                 <MathDisplay label="Eq. 3 - Metric Emergence">
-                                    g<sub className="mr-2">μν</sub> ∼ ⟨ ∂<sub className="mr-1">μ</sub>Φ  ∂<sub className="mr-1">ν</sub>Φ ⟩
+                                    g<sub className="mr-2">μν</sub> ∼ ⟨ ∂<sub className="mr-1">μ</sub>Φ , ∂<sub className="mr-1">ν</sub>Φ ⟩
                                 </MathDisplay>
-
-                                <h4 className="text-xl font-bold text-white mt-10 mb-4">The Pareto Law of Potentiality</h4>
+                                
+                                <h4 className="text-xl font-bold text-white mt-10 mb-4">3.2 The Speed of Light as a Processing Limit</h4>
                                 <p>
-                                    Relational relaxation is inherently non-uniform. We propose that the conversion of relational potential density <span className="font-serif italic">Ψ</span> into manifest structure follows a generalized Pareto (power-law) distribution. This explains the hierarchical nature of cosmic structures (voids, filaments) without fine-tuning.
+                                    Within the RZS framework, <span className="font-serif italic">c</span> is reinterpreted not as a fundamental constant, but as the maximum rate of causal update in the emergent relational network. It represents the upper bound on how rapidly relational information can propagate once spacetime has crystallized.
                                 </p>
 
-                                <MathDisplay label="Eq. 4 - Structure Formation">
+                                <h4 className="text-xl font-bold text-white mt-10 mb-4">3.3 The Pareto Law of Potentiality</h4>
+                                <p>
+                                    Relational relaxation is inherently non-uniform. Fluctuations in <span className="font-serif italic">Φ<sub>RZS</sub></span> lead to self-organized critical behavior. We propose that the conversion of relational potential density <span className="font-serif italic">Ψ</span> into manifest structure follows a generalized Pareto (power-law) distribution:
+                                </p>
+
+                                <MathDisplay label="Eq. 4 - Pareto Law">
                                     P(Ψ) = α · Ψ<sub className="mr-1">min</sub><sup className="mr-2">α</sup> · Ψ<sup className="ml-1">-(α+1)</sup>
                                 </MathDisplay>
+                                <p>
+                                    The Pareto index α is determined dynamically. Hierarchical cosmic structure—voids, filaments, and clusters—thus emerges as a statistically favored pathway for dissipating relational potential.
+                                </p>
                             </Section>
 
                             <Section number="4" title="Dual Stabilization Mechanism">
                                 <p>
-                                    To prevent the nucleation of the universe from collapsing back to zero, the model introduces parity symmetry breaking (P), generating a dual state governed by a unitary mixing matrix U. This couples geometry and matter fields.
+                                    To prevent re-collapse into the zero state, the RZS undergoes parity symmetry breaking, generating a dual relational sector described by a unitary mixing matrix U. This mechanism partitions realized potential into complementary channels corresponding to spacetime geometry and matter fields, ensuring long-term stability of the emergent universe.
                                 </p>
-                                <MathDisplay label="Eq. 5 - Stabilization">
-                                    <span className="inline-flex flex-col items-center align-middle mr-3">
-                                        <span className="border-b border-indigo-400/50 pb-1 mb-1">dΨ</span>
-                                        <span>dσ</span>
-                                    </span>
-                                    = U(θ)Ψ
-                                </MathDisplay>
+                            </Section>
+                            
+                            <Section number="5" title="Observational Implications">
+                                <h4 className="text-xl font-bold text-white mb-4">5.1 Black Holes as Saturation Interfaces</h4>
+                                <p>
+                                    In regions of extreme relational density, such as black holes, the gradient |∂Φ/∂σ|² saturates. The event horizon marks a phase boundary where coherent spacetime relations dissolve back into relational potential, suggesting a unitary resolution of information paradoxes.
+                                </p>
+                                <h4 className="text-xl font-bold text-white mt-8 mb-4">5.2 Cosmic Microwave Background Signatures</h4>
+                                <p>
+                                    Because the RZS transition is non-thermal and driven by stochastic gradient flow, it predicts specific forms of primordial non-Gaussianity in the CMB bispectrum and trispectrum. Precise derivation of these signatures constitutes a key falsifiability channel for the framework.
+                                </p>
                             </Section>
 
-                            <Section number="5" title="Conclusion">
+                            <Section number="6" title="Relation to Other Frameworks">
                                 <p>
-                                    The Relational Zero State hypothesis reframes cosmogenesis as a process of relational relaxation driven by intrinsic instability rather than temporal evolution. 
+                                    The RZS hypothesis operates at a more primitive ontological level than established approaches such as AdS/CFT holography, Loop Quantum Gravity, or Causal Set Theory.
                                 </p>
                                 <p>
-                                    By treating reality as the evolution of a complexity flow <span className="font-serif italic">Φ(σ)</span>, we unify cosmic genesis with quantum thermodynamics. The universe exists because "Nothingness" is fundamentally unstable.
+                                    Holographic dualities describe <em>how</em> gravitational geometry can emerge, while RZS seeks to explain <em>why</em> such dualities are possible. Discrete approaches may be interpreted as stabilized regimes of the RZS under specific dynamical constraints. In this sense, RZS is complementary rather than competitive.
                                 </p>
+                            </Section>
+
+                            <Section number="7" title="Conclusion">
+                                <p>
+                                    The Relational Zero State hypothesis reframes cosmogenesis as a process of relational relaxation driven by intrinsic instability rather than temporal evolution. Spacetime, matter, and causal structure emerge as effective phenomena governed by gradient-flow dynamics in a pre-geometric field.
+                                </p>
+                                <p>
+                                    The framework is intentionally presented as an open research program. Its value lies in clarifying the ontological assumptions underlying emergent spacetime and in defining concrete mathematical and observational challenges.
+                                </p>
+                            </Section>
+                            
+                            <Section number="8" title="Mathematical Challenges & Collaboration">
+                                <p className="mb-6">The RZS framework opens a number of well-defined mathematical problems that require rigorous formalization. Collaboration is particularly sought in the following areas:</p>
+                                
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <div className="bg-slate-900/40 p-6 rounded-lg border border-slate-800">
+                                        <h5 className="font-bold text-indigo-300 mb-2">Formalizing the Substrate</h5>
+                                        <ul className="list-disc pl-4 space-y-2 text-sm text-slate-400">
+                                            <li>Mathematical definition of a non-metric relational manifold</li>
+                                            <li>Characterization of the scalar field Φ without background geometry</li>
+                                            <li>Quantitative measures of relational complexity</li>
+                                        </ul>
+                                    </div>
+                                    <div className="bg-slate-900/40 p-6 rounded-lg border border-slate-800">
+                                        <h5 className="font-bold text-indigo-300 mb-2">Gradient-Flow & Geometry</h5>
+                                        <ul className="list-disc pl-4 space-y-2 text-sm text-slate-400">
+                                            <li>Formal gradient-flow dynamics absent a temporal parameter</li>
+                                            <li>Conditions under which correlation matrices induce Riemannian metrics</li>
+                                            <li>Connection between relational complexity and causal structure</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </Section>
                         </div>
 
@@ -266,16 +322,22 @@
                             <h4 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-6">Key References</h4>
                             <ul className="space-y-4 text-sm text-slate-400 font-mono">
                                 <li className="pl-4 border-l border-slate-700 hover:border-indigo-500 transition-colors">
-                                    [1] Romero, F. (2025). The Relational Zero State Hypothesis. Zenodo.
+                                    [1] Bak, P., Tang, C., & Wiesenfeld, K. (1987). Self-organized criticality. Phys. Rev. Lett., 59.
                                 </li>
                                 <li className="pl-4 border-l border-slate-700 hover:border-indigo-500 transition-colors">
-                                    [2] Guth, A. H. (1981). The Inflationary Universe. Phys. Rev. D, 23.
+                                    [2] Coleman, S. (1977). The fate of the false vacuum. Phys. Rev. D, 15.
                                 </li>
                                 <li className="pl-4 border-l border-slate-700 hover:border-indigo-500 transition-colors">
-                                    [3] Rovelli, C. (1996). Relational Quantum Mechanics. Int. Jour. Theo. Phys.
+                                    [3] Guth, A. H. (1981). Inflationary universe. Phys. Rev. D, 23.
                                 </li>
                                 <li className="pl-4 border-l border-slate-700 hover:border-indigo-500 transition-colors">
-                                    [4] Newman, M. E. J. (2005). Power laws and Pareto distributions.
+                                    [4] Newman, M. E. J. (2005). Power laws and Pareto distributions. Contemp. Phys, 46.
+                                </li>
+                                <li className="pl-4 border-l border-slate-700 hover:border-indigo-500 transition-colors">
+                                    [5] Rovelli, C. (1996). Relational quantum mechanics. Int. Jour. Theo. Phys, 35.
+                                </li>
+                                <li className="pl-4 border-l border-slate-700 hover:border-indigo-500 transition-colors">
+                                    [6] Verlinde, E. (2011). On the origin of gravity. JHEP, 2011.
                                 </li>
                             </ul>
                         </div>
